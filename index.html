@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 80%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+
+
+function kuva(){
+    var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var data = [];
+
+			var arv=document.getElementById("arv").value;
+            if (arv < 1 || arv > 10000){
+                alert("Arv ei tohi olla negatiivne või suurem kui 10000!");
+
+            }
+            if (arv >=1 && arv <=10000){
+            
+            for (var i = 0; i <= arv; i++) {
+            var theta = i / 100 * 360;
+            var r = 50 * (1 + Math.sin(theta / 180 * Math.PI));
+            data.push([r, theta]);
+}
+
+option = {
+    title: {
+        text: 'Joonistamine'
+    },
+    legend: {
+        data: ['bar']
+    },
+    polar: {},
+    
+    angleAxis: {
+        type: 'value',
+        startAngle: 0
+    },
+    radiusAxis: {
+    },
+    series: [{
+        coordinateSystem: 'polar',
+        name: 'bar',
+        type: 'bar',
+        data: data
+    }]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+			
+			
+		}
+}
+
+       </script>
+       
+       
+       <input type="number" id="arv" min="1" max="10000" />
+       
+
+       <input type="button" value="Sisesta arv 1st 10000ni ja vajuta nuppu" onclick="kuva()">
+   </body>
+</html>
